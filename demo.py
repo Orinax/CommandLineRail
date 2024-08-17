@@ -1,3 +1,6 @@
+# Demo file from:
+# https://thelinuxcode.com/python-curses/
+
 import curses
 from curses import textpad
 import time 

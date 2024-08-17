@@ -5,6 +5,3 @@ class Station:
         self.location = location
         self.freight = freight
         self.passengers = passengers
-
-
-

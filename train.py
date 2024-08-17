@@ -1,8 +1,5 @@
 import random
 
-from rich.progress import Progress
-from progress.bar import Bar
-from time import sleep
 
 class Train:
 
@@ -25,7 +22,7 @@ class Train:
         if self.current_station in possible_destinations:
             possible_destinations.remove(self.current_station)
         self.current_destination = random.choice(possible_destinations)
-        print(f"{self.name} is at {self.current_station.name}, departing for {self.current_destination.name}")
+        # print(f"{self.name} is at {self.current_station.name}, departing for {self.current_destination.name}")
 
 
     def calculate_travel_distance(self):
@@ -36,23 +33,11 @@ class Train:
             self.distance_to_destination = end - start
         else:
             self.distance_to_destination = start - end
-        print(f"{self.name} will travel {self.distance_to_destination} km")
+        # print(f"{self.name} will travel {self.distance_to_destination} km")
 
 
     def update_current_station(self):
         """After travelling, update current station location with current_destination because the train will
         have now arrived."""
         self.current_station = self.current_destination
-        print(f"{self.name} is now at {self.current_station.name}")
-
-
-    def travel(self, time):
-        self.is_moving = True
-        self.current_speed = self.max_speed
-
-        bar = Bar("Traveling", max=time)
-        for i in range(time):
-            sleep(0.05)
-            bar.next()
-
-        print("Traveling")
+        # print(f"{self.name} is now at {self.current_station.name}")
