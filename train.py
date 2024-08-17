@@ -2,6 +2,9 @@ from progress.bar import Bar
 from time import sleep
 
 
+train_names = ["Electric Blue"]
+
+
 class Train:
 
     def __init__(self, name, is_moving=False, current_station="Central Station", current_destination="N/A",

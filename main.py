@@ -1,18 +1,25 @@
 import curses
 import time
-import random
-from station import Station
+from station import Station, random_locations, station_names
+from train import Train, train_names
+from alive_progress.styles import showtime
 
 def main():
-    # make a list of random numbers to use as locations for stations.
 
     # Create stations
-    central_station = Station("Central Station", 0)
-    new_york = Station('New York', random.randint(50, 500))
-    boston = Station('Boston', ra)
-    # Create trains
-    # Move the trains
+    stations = {}
+    for index in range(len(station_names)):
+        stations[station_names[index]] = Station(station_names[index], random_locations[index])
 
+    # Create trains
+    trains = {}
+    for index in range(len(train_names)):
+        trains[train_names[index]] = Train(train_names[index])
+
+    # Move the trains
+    # for train in trains.values():
+    #     train.travel(200)
+    showtime()
 
 if __name__ == "__main__":
     main()
