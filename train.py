@@ -4,7 +4,7 @@ import random
 class Train:
 
     def __init__(self, name, speed, current_station, current_destination, distance_to_destination=0,
-                 num_total_cars=0, num_freight_cars=0, num_passenger_cars=0):
+                 num_total_cars=0, num_freight_cars=0, num_passenger_cars=1, num_current_passengers=0):
         self.name = name
         self.speed = speed
         self.current_station = current_station
@@ -13,6 +13,9 @@ class Train:
         self.num_total_cars = num_total_cars
         self.num_freight_cars = num_freight_cars
         self.num_passenger_cars = num_passenger_cars
+        self.num_current_passengers = num_current_passengers
+        self.max_passenger_capacity = self.num_passenger_cars * 10
+        self.ticket_price = 2.15
 
 
     def choose_destination(self, stations):
@@ -42,3 +45,28 @@ class Train:
         have now arrived."""
         self.current_station = self.current_destination
         # print(f"{self.name} is now at {self.current_station.name}")
+
+
+    def pick_up_passengers(self, stations):
+        num_open_seats = self.max_passenger_capacity - self.num_current_passengers
+
+        if stations[self.current_station.name].passengers > 0 and stations[self.current_station.name].passengers <= num_open_seats:
+            random_num_of_boarders = random.randrange(0, stations[self.current_station.name].passengers)
+            self.num_current_passengers += random_num_of_boarders
+            stations[self.current_station.name].passengers -= random_num_of_boarders
+        if stations[self.current_station.name].passengers > num_open_seats:
+            random_num_of_boarders = random.randrange(0, num_open_seats)
+            self.num_current_passengers += random_num_of_boarders
+            stations[self.current_station.name].passengers -= random_num_of_boarders
+
+        fees_from_passengers = self.num_current_passengers * self.ticket_price
+        return fees_from_passengers
+
+
+    def let_passengers_off(self):
+         if self.num_current_passengers > 0:
+             random_num_of_disembarkers = random.randrange(0, self.num_current_passengers)
+             self.num_current_passengers -= random_num_of_disembarkers
+             return random_num_of_disembarkers
+         else:
+             return 0
