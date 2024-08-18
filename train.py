@@ -14,6 +14,7 @@ class Train:
         self.num_freight_cars = num_freight_cars
         self.num_passenger_cars = num_passenger_cars
 
+
     def choose_destination(self, stations):
         possible_destinations = []
         for station in stations.values():

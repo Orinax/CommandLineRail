@@ -26,6 +26,7 @@ def create_table(trains):
     table.add_column("Destination", style="green", justify="center")
     table.add_column("Travel Distance", style="green", justify="center")
 
+
     for train in trains.values():
         table.add_row(
             str(train.name),
