@@ -15,7 +15,6 @@ class Train:
         self.num_passenger_cars = num_passenger_cars
         self.num_current_passengers = num_current_passengers
         self.max_passenger_capacity = self.num_passenger_cars * 10
-        self.ticket_price = 2.15
 
 
     def choose_destination(self, stations):
@@ -48,6 +47,7 @@ class Train:
 
 
     def pick_up_passengers(self, stations):
+        random_num_of_boarders = 0
         num_open_seats = self.max_passenger_capacity - self.num_current_passengers
 
         if stations[self.current_station.name].passengers > 0 and stations[self.current_station.name].passengers <= num_open_seats:
@@ -59,8 +59,7 @@ class Train:
             self.num_current_passengers += random_num_of_boarders
             stations[self.current_station.name].passengers -= random_num_of_boarders
 
-        fees_from_passengers = self.num_current_passengers * self.ticket_price
-        return fees_from_passengers
+        return random_num_of_boarders
 
 
     def let_passengers_off(self):

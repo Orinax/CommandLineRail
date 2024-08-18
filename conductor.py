@@ -12,6 +12,7 @@ class Conductor:
         self.trains_are_running = trains_are_running
         self.total_earnings = total_earnings
         self.passengers_transported = passengers_transported
+        self.ticket_price = 2.15
 
 
     def choose_name(self):
@@ -43,6 +44,7 @@ class Conductor:
 
     def handle_all_trains(self, trains, stations, create_table, console, run_the_trains, os):
         if self.trains_are_running:
+            passengers_embarking = 0
             passengers_disembarking = 0
 
             for station in stations.values():
@@ -51,13 +53,14 @@ class Conductor:
             for train in trains.values():
                 train.choose_destination(stations)
                 train.calculate_travel_distance()
-                self.total_earnings += train.pick_up_passengers(stations)
+                passengers_embarking += train.pick_up_passengers(stations)
 
             current_table = create_table(trains)
             conductor_table = create_conductor_table(self)
             console.print(current_table)
             console.print(conductor_table)
             print("Press \"Ctrl+c\" at any time to stop the trains.")
+            print(f"Please mind the gap as you embark... ({passengers_embarking} passenger(s) embarked)")
 
             # Move the trains
             run_the_trains(trains)
@@ -67,7 +70,9 @@ class Conductor:
                 num_passengers_getting_off = train.let_passengers_off()
                 passengers_disembarking += num_passengers_getting_off
 
+            self.total_earnings += passengers_embarking * self.ticket_price
             self.passengers_transported += passengers_disembarking
+
             print(f"Please mind the gap as you disembark... ({passengers_disembarking} passenger(s) disembarked)")
             time.sleep(3)
             print("ALL ABOARD!")
@@ -77,16 +82,6 @@ class Conductor:
             print("All trains have stopped.")
             # In the future, add access to a menu that will allow the conductor to manage the trains while
             # they are at a station.
-
-
-    def pause_all_trains(self):
-        conductor_input = input("Would you like to pause all trains? (y/n) ")
-        if conductor_input.lower() == 'y':
-            self.trains_are_running = False
-        elif conductor_input.lower() == 'n':
-            self.trains_are_running = True
-        else:
-            print("I didn't understand that. Please try again.")
 
 
     def stop_conducting(self):

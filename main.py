@@ -1,5 +1,4 @@
 import os
-import time
 
 from conductor import Conductor
 from rich.console import Console
@@ -32,7 +31,7 @@ def main():
 
     exit_card = create_exit_card(main_conductor)
     console.print(exit_card)
-    good_bye = input("Press any key to quit.")
+    input("Press any key to quit.")
     os.system('cls||clear')
 
 
