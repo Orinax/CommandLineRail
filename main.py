@@ -12,13 +12,13 @@ stations = create_stations(station_names, random_locations)
 trains = create_trains(train_names, train_speeds, stations)
 main_conductor = Conductor()
 welcome_card = create_welcome_card()
-exit_card = create_exit_card()
 console = Console()
 
 
 def main():
 
     console.print(welcome_card)
+    main_conductor.choose_name()
     main_conductor.begin_conducting()
     os.system('cls||clear')
 
@@ -30,8 +30,9 @@ def main():
             main_conductor.stop_conducting()
             os.system('cls||clear')
 
+    exit_card = create_exit_card(main_conductor)
     console.print(exit_card)
-    time.sleep(4)
+    good_bye = input("Press any key to quit.")
     os.system('cls||clear')
 
 

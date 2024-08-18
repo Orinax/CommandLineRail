@@ -14,11 +14,13 @@ def create_welcome_card():
     return table
 
 
-def create_exit_card():
+def create_exit_card(conductor):
     table = Table(title="Command Line Rail", show_header=True, header_style="bold magenta")
-    table.add_column("Thank you for being today's conductor for Command Line Rail!", justify="center")
+    table.add_column(f"Thank you {conductor.name}, for being today's conductor for Command Line Rail!", justify="center")
     table.add_row("We hope you enjoyed watching the trains run!", style="bold red")
     table.add_row("You are welcome to come back any time and run more trains!", style="bold red")
+    table.add_row(f"You earned a total of {str(locale.currency(conductor.total_earnings, grouping=True))},", style="bold green")
+    table.add_row(f"and you transported a total of {conductor.passengers_transported} passengers.", style="bold green")
     return table
 
 
@@ -28,7 +30,7 @@ def create_conductor_table(conductor):
     table.add_column("Total Earnings", justify="center")
     table.add_column("Passengers Transported", justify="center")
     table.add_row(
-        "Bob",
+        str(conductor.name),
         str(locale.currency(conductor.total_earnings, grouping=True)),
         str(conductor.passengers_transported),
     style="bold green")
@@ -48,7 +50,7 @@ def create_train_table(trains):
             str(train.name),
             str(train.current_station.name),
             str(train.current_destination.name),
-            str(train.distance_to_destination),
+            f"{str(train.distance_to_destination)} km",
             str(train.num_current_passengers),
         )
     return table
