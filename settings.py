@@ -1,15 +1,20 @@
 import random
+
+from rich.progress import Progress, ProgressBar
+
 from train import Train
 from station import Station
 
-random_locations = [0]
-for i in range(5):
-    random_locations.append(random.randint(50,1000))
 
-station_names = ["Central Station", "South Station", "West Station", "King Station", "Amazon Heights", "Empire Flats"]
-train_names = ["Electric Blue", "Yellowstone Bullet", "Magenta Magnet"]
-train_speeds = [0.7, 0.5, 0.9]
+station_names = ["Central Station", "South Station", "West Station", "King Station", "Amazon Heights", "Empire Flats",
+                 "Tumblestone Canyon", "Deepslate Docks", "Distant Outpost"]
+train_names = ["Electric Blue", "Yellowstone Bullet", "Magenta Magnet", "Crimson Steamer"]
+train_speeds = [0.8, 0.7, 0.9, 1.0]
+train_colors = ["blue", "yellow", "magenta", "red"]
 
+random_locations = []
+for i in range(len(station_names)):
+    random_locations.append(random.randint(100,1000))
 
 # Create stations
 def create_stations(station_name_list, random_location_list):
@@ -19,9 +24,16 @@ def create_stations(station_name_list, random_location_list):
     return stations
 
 # Create trains
-def create_trains(train_name_list, train_speed_list, stations):
+def create_trains(train_name_list, train_speed_list, stations, train_color_list):
     trains = {}
     for index in range(len(train_name_list)):
         trains[f"Train {index}"] = Train(train_name_list[index], train_speed_list[index], stations["Central Station"],
-                                         stations["Central Station"])
+                                         stations["Central Station"], train_color_list[index])
     return trains
+
+# def create_progress_bars(train_name_list, train_color_list, trains):
+#     bars = {}
+#     with Progress() as progress:
+#         for index in range(len(train_name_list)):
+#             bars[f"Train {index}"] = progress.add_task(f"{train_color_list[index]}{trains[f'Train {index}'].name}...[/]",
+#                                                         total=trains[f'Train {index}'].distance_to_destination)

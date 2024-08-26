@@ -3,12 +3,13 @@ import random
 
 class Train:
 
-    def __init__(self, name, speed, current_station, current_destination, distance_to_destination=0,
+    def __init__(self, name, speed, current_station, current_destination, color, distance_to_destination=0,
                  num_total_cars=0, num_freight_cars=0, num_passenger_cars=1, num_current_passengers=0):
         self.name = name
         self.speed = speed
         self.current_station = current_station
         self.current_destination = current_destination
+        self.color = color
         self.distance_to_destination = distance_to_destination
         self.num_total_cars = num_total_cars
         self.num_freight_cars = num_freight_cars

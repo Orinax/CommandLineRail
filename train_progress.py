@@ -1,19 +1,22 @@
 import time
 
 from rich.progress import Progress
+from settings import train_names, train_colors, train_speeds
 
 
 def run_the_trains(trains):
     # Move the trains
+    bars = []
     with Progress() as progress:
-        train0 = progress.add_task(f"[blue]{trains['Train 0'].name}...[/]",
-                                   total=trains['Train 0'].distance_to_destination)
-        train1 = progress.add_task(f"[yellow]{trains['Train 1'].name}...[/]",
-                                   total=trains['Train 1'].distance_to_destination)
-        train2 = progress.add_task(f"[magenta]{trains['Train 2'].name}...[/]",
-                                   total=trains['Train 2'].distance_to_destination)
+
+        for index in range(len(trains)):
+            bar = progress.add_task(f"[{trains[f'Train {index}'].color}]{trains[f'Train {index}'].name}...[/]",
+                                                       total=trains[f'Train {index}'].distance_to_destination)
+            bars.append(bar)
+
         while not progress.finished:
-            progress.update(train0, advance=trains['Train 0'].speed)
-            progress.update(train1, advance=trains['Train 1'].speed)
-            progress.update(train2, advance=trains['Train 2'].speed)
-            time.sleep(0.01)
+            train_num = 0
+            for bar in bars:
+                progress.update(bar, advance=trains[f'Train {train_num}'].speed)
+                time.sleep(0.01)
+                train_num += 1
