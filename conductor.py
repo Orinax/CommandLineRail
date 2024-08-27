@@ -42,7 +42,7 @@ class Conductor:
                 print("I didn't understand that. Please try again.")
 
 
-    def handle_all_trains(self, trains, stations, create_table, console, run_the_trains, os):
+    def handle_all_trains(self, trains, stations, display_tables, create_table, console, run_the_trains, os):
         if self.trains_are_running:
             passengers_embarking = 0
             passengers_disembarking = 0
@@ -55,15 +55,14 @@ class Conductor:
                 train.calculate_travel_distance()
                 passengers_embarking += train.pick_up_passengers(stations)
 
-            current_table = create_table(trains)
-            conductor_table = create_conductor_table(self)
-            console.print(current_table)
-            console.print(conductor_table)
-            print("Press \"Ctrl+c\" at any time to stop the trains.")
-            print(f"Please mind the gap as you embark... ({passengers_embarking} passenger(s) embarked)")
+            display_tables(self, trains, console, create_table, passengers_embarking)
+            # create_table(trains, console)
+            # create_conductor_table(self, console)
+            # print("Press \"Ctrl+c\" at any time to stop the trains.")
+            # print(f"Please mind the gap as you embark... ({passengers_embarking} passenger(s) embarked)")
 
             # Move the trains
-            run_the_trains(trains)
+            run_the_trains(self, console, create_table, display_tables, trains, os, passengers_embarking)
 
             for train in trains.values():
                 train.update_current_station()

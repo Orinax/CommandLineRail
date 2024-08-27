@@ -30,10 +30,3 @@ def create_trains(train_name_list, train_speed_list, stations, train_color_list)
         trains[f"Train {index}"] = Train(train_name_list[index], train_speed_list[index], stations["Central Station"],
                                          stations["Central Station"], train_color_list[index])
     return trains
-
-# def create_progress_bars(train_name_list, train_color_list, trains):
-#     bars = {}
-#     with Progress() as progress:
-#         for index in range(len(train_name_list)):
-#             bars[f"Train {index}"] = progress.add_task(f"{train_color_list[index]}{trains[f'Train {index}'].name}...[/]",
-#                                                         total=trains[f'Train {index}'].distance_to_destination)

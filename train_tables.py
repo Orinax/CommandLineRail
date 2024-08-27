@@ -6,6 +6,13 @@ from rich.table import Table
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 
+def display_tables(conductor, trains, console, create_table, passengers_embarking):
+    create_table(trains, console)
+    create_conductor_table(conductor, console)
+    print("Press \"Ctrl+c\" at any time to stop the trains.")
+    print(f"Please mind the gap as you embark... ({passengers_embarking} passenger(s) embarked)")
+
+
 def create_welcome_card():
     table = Table(title="Command Line Rail", show_header=True, header_style="bold magenta")
     table.add_column("Welcome! You are the new conductor for Command Line Rail!", justify="center")
@@ -24,7 +31,7 @@ def create_exit_card(conductor):
     return table
 
 
-def create_conductor_table(conductor):
+def create_conductor_table(conductor, console):
     table = Table(title="Conductor Profile", show_header=True, header_style="bold magenta")
     table.add_column("Conductor Name", justify="center")
     table.add_column("Total Earnings", justify="center")
@@ -34,10 +41,10 @@ def create_conductor_table(conductor):
         str(locale.currency(conductor.total_earnings, grouping=True)),
         str(conductor.passengers_transported),
     style="bold green")
-    return table
+    console.print(table)
 
 
-def create_train_table(trains):
+def create_train_table(trains, console):
     table = Table(title="Train Tables")
     table.add_column("Train Name", style="green", justify="center")
     table.add_column("Current Station", style="green", justify="center")
@@ -53,4 +60,4 @@ def create_train_table(trains):
             f"{str(train.distance_to_destination)} km",
             str(train.num_current_passengers),
         )
-    return table
+    console.print(table)

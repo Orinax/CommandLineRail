@@ -6,7 +6,7 @@ from settings import create_stations, create_trains, station_names, train_names,
     train_colors
 
 from train_progress import run_the_trains
-from train_tables import create_welcome_card, create_train_table, create_exit_card
+from train_tables import create_welcome_card, create_train_table, create_exit_card, display_tables
 
 
 stations = create_stations(station_names, random_locations)
@@ -24,13 +24,13 @@ def main():
     main_conductor.begin_conducting()
     os.system('cls||clear')
 
+    #while main_conductor.is_conducting:
+        # try:
     while main_conductor.is_conducting:
-        try:
-            while main_conductor.is_conducting:
-                main_conductor.handle_all_trains(trains, stations, create_train_table, console, run_the_trains, os)
-        except KeyboardInterrupt:
-            main_conductor.stop_conducting()
-            os.system('cls||clear')
+        main_conductor.handle_all_trains(trains, stations, display_tables, create_train_table, console, run_the_trains, os)
+        # except KeyboardInterrupt:
+        #     main_conductor.stop_conducting()
+        #     os.system('cls||clear')
 
     exit_card = create_exit_card(main_conductor)
     console.print(exit_card)
