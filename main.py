@@ -24,13 +24,8 @@ def main():
     main_conductor.begin_conducting()
     os.system('cls||clear')
 
-    #while main_conductor.is_conducting:
-        # try:
     while main_conductor.is_conducting:
         main_conductor.handle_all_trains(trains, stations, display_tables, create_train_table, console, run_the_trains, os)
-        # except KeyboardInterrupt:
-        #     main_conductor.stop_conducting()
-        #     os.system('cls||clear')
 
     exit_card = create_exit_card(main_conductor)
     console.print(exit_card)

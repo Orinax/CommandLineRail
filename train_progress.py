@@ -26,10 +26,11 @@ def run_the_trains(conductor, console, create_table, display_tables, trains, os,
             except KeyboardInterrupt:
                 progress.stop()
                 conductor.stop_conducting()
-                os.system('cls||clear')
-                display_tables(conductor, trains, console, create_table, passengers_embarking)
-                print()
-                print()
-                print()
-                progress.start()
+                if conductor.is_conducting:
+                    os.system('cls||clear')
+                    display_tables(conductor, trains, console, create_table, passengers_embarking)
+                    print("\n\n")  # without this, some lines from the conductor profile and messages will be hidden under the progress bars.
+                    progress.start()
+                else:
+                    break
     return bars

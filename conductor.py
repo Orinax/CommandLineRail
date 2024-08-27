@@ -56,27 +56,27 @@ class Conductor:
                 passengers_embarking += train.pick_up_passengers(stations)
 
             display_tables(self, trains, console, create_table, passengers_embarking)
-            # create_table(trains, console)
-            # create_conductor_table(self, console)
-            # print("Press \"Ctrl+c\" at any time to stop the trains.")
-            # print(f"Please mind the gap as you embark... ({passengers_embarking} passenger(s) embarked)")
 
             # Move the trains
             run_the_trains(self, console, create_table, display_tables, trains, os, passengers_embarking)
 
-            for train in trains.values():
-                train.update_current_station()
-                num_passengers_getting_off = train.let_passengers_off()
-                passengers_disembarking += num_passengers_getting_off
+            if self.is_conducting:
+                for train in trains.values():
+                    train.update_current_station()
+                    num_passengers_getting_off = train.let_passengers_off()
+                    passengers_disembarking += num_passengers_getting_off
 
-            self.total_earnings += passengers_embarking * self.ticket_price
-            self.passengers_transported += passengers_disembarking
+                self.total_earnings += passengers_embarking * self.ticket_price
+                self.passengers_transported += passengers_disembarking
 
-            print(f"Please mind the gap as you disembark... ({passengers_disembarking} passenger(s) disembarked)")
-            time.sleep(3)
-            print("ALL ABOARD!")
-            time.sleep(2)
-            os.system('cls||clear')
+                print(f"Please mind the gap as you disembark... ({passengers_disembarking} passenger(s) disembarked)")
+                time.sleep(3)
+                print("ALL ABOARD!")
+                time.sleep(2)
+                os.system('cls||clear')
+            else:
+                os.system('cls||clear')
+
         else:
             print("All trains have stopped.")
             # In the future, add access to a menu that will allow the conductor to manage the trains while
